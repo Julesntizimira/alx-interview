@@ -4,8 +4,8 @@
 
 def canUnlockAll(boxes):
     '''Determines if all the boxes can be opened.'''
-    if not isinstance(boxes, list):
-        raise TypeError("Input must be a list of boxes.")
+    if not boxes or not boxes[0]:
+        return False
     opened = set()
     opened.add(0)
     first_box = boxes[0]
