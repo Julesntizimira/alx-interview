@@ -1,22 +1,14 @@
 #!/usr/bin/python3
-'''Lockboxes'''
+""" module for the functions canUnlockAll"""
 
 
 def canUnlockAll(boxes):
-    if not boxes or not boxes[0]:
-        return False  # No boxes or the first box is empty, cannot unlock all.
-
-    n = len(boxes)
-    visited = set()
-    stack = [0]  # Start with the first box.
-
-    while stack:
-        current_box = stack.pop()
-        visited.add(current_box)
-
-        for key in boxes[current_box]:
-            if key not in visited and 0 <= key < n:
-                stack.append(key)
-
-    return len(visited) == n
-
+    """Check if it's possible to unlock all boxes in a given list of boxes"""
+    opened = [0]
+    for box in opened:
+        for key in boxes[box]:
+            if key not in opened and key < len(boxes):
+                opened.append(key)
+    if len(boxes) == len(opened):
+        return True
+    return False
