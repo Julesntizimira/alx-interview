@@ -15,7 +15,7 @@ def canUnlockAll(boxes):
 
 def dfs(boxes, current_box, opened):
     '''Depth-First Search helper function.'''
-    if len(opened) == len(boxes) or len(current_box) == 0:
+    if len(current_box) == 0:
         return
 
     for key in current_box:
