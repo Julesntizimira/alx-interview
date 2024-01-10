@@ -3,19 +3,26 @@
 
 
 def canUnlockAll(boxes):
-    '''determines if all the boxes can be opened'''
+    '''Determines if all the boxes can be opened.'''
+    if not isinstance(boxes, list):
+        raise TypeError("Input must be a list of boxes.")
+    
     opened = set()
     opened.add(0)
-    box = boxes[0]
-    helper(boxes, box, opened)
+    first_box = boxes[0]
+    dfs(boxes, first_box, opened)
     return len(opened) == len(boxes)
 
-def helper(boxes, box, opened):
-    if len(opened) == len(boxes) or len(box) == 0:
+
+def dfs(boxes, current_box, opened):
+    '''Depth-First Search helper function.'''
+    if len(opened) == len(boxes) or len(current_box) == 0:
         return
-    for key in box:
-        if key in opened:
-            continue
-        opened.add(key)
-        helper(boxes, boxes[key], opened)
+    
+    for key in current_box:
+        if key not in opened:
+            opened.add(key)
+            dfs(boxes, boxes[key], opened)
+
+
 
