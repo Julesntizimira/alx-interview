@@ -3,22 +3,20 @@
 
 
 def canUnlockAll(boxes):
-    '''Determines if all the boxes can be opened.'''
     if not boxes or not boxes[0]:
-        return False
-    opened = set()
-    opened.add(0)
-    first_box = boxes[0]
-    dfs(boxes, first_box, opened)
-    return len(opened) == len(boxes)
+        return False  # No boxes or the first box is empty, cannot unlock all.
 
+    n = len(boxes)
+    visited = set()
+    stack = [0]  # Start with the first box.
 
-def dfs(boxes, current_box, opened):
-    '''Depth-First Search helper function.'''
-    if len(current_box) == 0:
-        return
+    while stack:
+        current_box = stack.pop()
+        visited.add(current_box)
 
-    for key in current_box:
-        if key not in opened:
-            opened.add(key)
-            dfs(boxes, boxes[key], opened)
+        for key in boxes[current_box]:
+            if key not in visited and 0 <= key < n:
+                stack.append(key)
+
+    return len(visited) == n
+
