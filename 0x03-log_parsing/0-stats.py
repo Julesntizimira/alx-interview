@@ -12,6 +12,7 @@ def calculate_statistics(total_size, status_codes):
     for status_code in sorted(status_codes):
         print("{}: {}".format(status_code, status_codes[status_code]))
 
+
 def main():
     '''main function
     '''
@@ -43,6 +44,7 @@ def main():
         except (ValueError, IndexError):
             # Skip lines with invalid format
             pass
+
 
 if __name__ == "__main__":
     main()
