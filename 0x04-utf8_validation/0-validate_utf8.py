@@ -16,15 +16,21 @@ def validUTF8(data):
         if byt.startswith('0'):
             i = i + 1
         elif byt.startswith('110'):
+            if len(binary_list) < i + 2:
+                return False
             if not binary_list[i + 1].startswith('10'):
                 return False
             i = i + 2
         elif byt.startswith('1110'):
+            if len(binary_list) < i + 3:
+                return False
             for j in range(i + 1, i + 3):
                 if not binary_list[j].startswith('10'):
                     return False
             i = i + 3
         elif byt.startswith('11110'):
+            if len(binary_list) < i + 4:
+                return False
             for j in range(i + 1, i + 4):
                 if not binary_list[j].startswith('10'):
                     return False
