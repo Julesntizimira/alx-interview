@@ -7,7 +7,11 @@ def validUTF8(data):
     ''' determines if a given data set
         represents a valid UTF-8 encoding
     '''
-    binary_list = [format(decimal_number, '08b') for decimal_number in data]
+    binary_list = []
+    for decimal_number in data:
+        if decimal_number > 255:
+            return False
+        binary_list.append(format(decimal_number, '08b'))
     i = 0
     while i < len(binary_list):
         byt = binary_list[i]
