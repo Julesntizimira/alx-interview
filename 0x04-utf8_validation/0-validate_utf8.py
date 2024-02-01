@@ -11,11 +11,8 @@ def validUTF8(data: List[int]) -> bool:
     if not isinstance(data, list) or\
             not all([isinstance(n, int) and n <= 256 for n in data]):
         return False
-    clamped_data = []
-    for num in data:
-        num %= 256
-        clamped_data.append(num)
-    binary_list = [format(decimal_number, '08b') for decimal_number in clamped_data]
+    binary_list = [format(decimal_number % 256, '08b')
+                   for decimal_number in data]
     i = 0
     while i < len(binary_list):
         byt = binary_list[i]
