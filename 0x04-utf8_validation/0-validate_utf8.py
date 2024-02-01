@@ -9,9 +9,7 @@ def validUTF8(data: List[int]) -> bool:
         represents a valid UTF-8 encoding
     '''
     if not isinstance(data, list) or\
-            not all([isinstance(n, int) for n in data]):
-        return False
-    if not all([n <= 256 for n in data]):
+            not all([isinstance(n, int) and n <= 256 for n in data]):
         return False
     binary_list = [format(decimal_number, '08b') for decimal_number in data]
     i = 0
