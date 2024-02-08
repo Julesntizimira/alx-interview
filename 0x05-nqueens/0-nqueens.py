@@ -1,62 +1,66 @@
 #!/usr/bin/python3
 """
-The N queens puzzle is the challenge of placing N non-attacking queens
-on an NxN chessboard. Write a program that solves the N queens problem.
+    N-queen problem
+    The next algo solve any N queen in any NxN
+    Being N > 3
 """
-
 import sys
 
-if len(sys.argv) != 2:
-    print("Usage: nqueens N")
-    sys.exit(1)
 
-try:
-    N = int(sys.argv[1])
-except ValueError:
-    print("N must be a number")
-    sys.exit(1)
-
-if N < 4:
-    print("N must be at least 4")
-    sys.exit(1)
-
-board = []
-for i in range(N):
-    row = []
-    for y in range(N):
-        row.append(0)
-    board.append(row)
-queens = []
-
-
-def available_spots(queens, board):
-    """Check and mark available spots on a chessboard."""
-    for i, row in enumerate(board):
-        for j, square in enumerate(row):
-            for x, y in queens:
-                if i == x or j == y or abs(i - x) == abs(j - y):
-                    board[i][j] = 1
-
-
-def queen_down(N, queens, board, final_combo):
+def n_q(t_arr, arr, col, i, n):
     """
-    Place queens on a chessboard of size N,
-    exploring all combinations and returning unique solutions.
+       n_q - Find all posibles solution for N-queen problem and return it
+             in a list
+       @t_arr: temporaly list to store the all points of a posible solution
+       @arr: store all the solution
+       @col: save a colum use for a queen
+       @i: the row of the chess table
+       @n: Number of queens
     """
-    if len(queens) == N:
-        sorted_queens = sorted(queens, key=lambda x: x[0])
-        if sorted_queens not in final_combo:
-            final_combo.append(queens)
-        return final_combo
-    available_spots(queens, board)
-    for i, row in enumerate(board):
-        for j, square in enumerate(row):
-            if not square:
-                board_cpy = [r[:] for r in board]
-                queen_down(N, queens + [[i, j]], board_cpy, final_combo)
-    return final_combo
+    if (i > n):
+        arr.append(t_arr[:])
+        return arr
+
+    for j in range(n + 1):
+        if i == 0 or ([i - 1, j - 1] not in t_arr and
+                      [i - 1, j + 1] not in t_arr and
+                      j not in col):
+            if i > 1:
+                dia = 0
+                for k in range(2, i + 1):
+                    if ([i - k, j - k] in t_arr) or ([i - k, j + k] in t_arr):
+                        dia = 1
+                        break
+                if dia:
+                    continue
+            t_arr.append([i, j])
+            col.append(j)
+            n_q(t_arr, arr, col, i + 1, n)
+            col.pop()
+            t_arr.pop()
+
+    return arr
 
 
-queens = queen_down(N, queens, board, [])
-for queen in queens:
-    print(queen)
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: nqueens N")
+        exit(1)
+
+    try:
+        n = int(sys.argv[1])
+    except BaseException:
+        print("N must be a number")
+        exit(1)
+
+    if not isinstance(n, int):
+        print("N must be a number")
+        exit(1)
+
+    elif n < 4:
+        print("N must be at least 4")
+        exit(1)
+
+    n_q_arr = n_q([], [], [], 0, n - 1)
+    for i in n_q_arr:
+        print(i)
