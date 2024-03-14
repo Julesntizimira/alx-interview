@@ -24,7 +24,6 @@ def isWinner(x, nums):
             wins['Ben'] += 1
             continue
         turn = 'Maria'
-        v = 0
         num_set = [x for x in range(2, query_num + 1)]
         for k in range(len(primes)):
             if k != 0:
@@ -38,7 +37,7 @@ def isWinner(x, nums):
                 if num % chosen_num == 0:
                     num_set.remove(num)
             single_wins[turn] += 1
-            if len(num_set) == 0:
+            if len(num_set) == 0 or len(primes) == 0:
                 single_wins[turn] += 1
                 break
         if single_wins['Maria'] == single_wins['Ben']:
@@ -46,6 +45,9 @@ def isWinner(x, nums):
         winner = 'Maria' if single_wins['Maria'] >\
             single_wins['Ben'] else 'Ben'
         wins[winner] += 1
+        if i + 1 < x - 1 and i + 1 > len(nums):
+            wins[winner] += 1
+            break
     if wins['Maria'] == wins['Ben']:
         return None
     return 'Maria' if wins['Maria'] > wins['Ben'] else 'Ben'
