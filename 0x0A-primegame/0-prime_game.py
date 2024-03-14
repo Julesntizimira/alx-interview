@@ -3,6 +3,7 @@
 
 
 def isWinner(x, nums):
+    '''Prime Game'''
     e_cache_primes = {}
     wins = {"Maria": 0, "Ben": 0}
     for i in range(x):
