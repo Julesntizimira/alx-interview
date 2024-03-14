@@ -22,7 +22,6 @@ def isWinner(x, nums):
                             primes.append(j)
                             break
             e_cache_primes[query_num] = primes
-        print(primes)
         if len(primes) == 0:
             wins['Ben'] += 1
             continue
@@ -35,7 +34,6 @@ def isWinner(x, nums):
                     turn = 'Ben'
                 else:
                     turn = 'Maria'
-            k += 1
             chosen_num = primes[0]
             primes.remove(chosen_num)
             for num in num_set:
