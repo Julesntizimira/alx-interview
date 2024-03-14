@@ -4,7 +4,7 @@
 
 def isWinner(x, nums):
     '''Prime Game'''
-    if x is None or nums is None or x == 0 or nums == []:
+    if x <= 0 or not nums:
         return None
     e_cache_primes = {}
     wins = {"Maria": 0, "Ben": 0}
