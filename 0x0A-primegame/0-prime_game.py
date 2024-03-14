@@ -4,6 +4,8 @@
 
 def isWinner(x, nums):
     '''Prime Game'''
+    if x > len(nums):
+        x == len(nums)
     e_cache_primes = {}
     wins = {"Maria": 0, "Ben": 0}
     for i in range(x):
@@ -22,6 +24,7 @@ def isWinner(x, nums):
                             primes.append(j)
                             break
             e_cache_primes[query_num] = primes
+        print(primes)
         if len(primes) == 0:
             wins['Ben'] += 1
             continue
