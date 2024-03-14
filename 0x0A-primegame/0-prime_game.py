@@ -6,7 +6,7 @@ def isWinner(x, nums):
     '''Prime Game'''
     e_cache_primes = {}
     wins = {"Maria": 0, "Ben": 0}
-    for i in range(len(nums)):
+    for i in range(x):
         single_wins = {"Maria": 0, "Ben": 0}
         query_num = nums[i]
         if query_num in e_cache_primes:
