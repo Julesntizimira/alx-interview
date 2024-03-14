@@ -2,28 +2,29 @@
 """ Prime Game """
 
 
-# def isWinner(x, nums):
-#     '''Prime Game'''
-#     if x is None or nums is None or x == 0 or nums == []:
-#         return None
-#     e_cache_primes = {}
-#     wins = {"Maria": 0, "Ben": 0}
-#     for i in range(x):
-#         single_wins = {"Maria": 0, "Ben": 0}
-#         query_num = nums[i]
-#         if query_num in e_cache_primes:
-#             primes = e_cache_primes[query_num]
-#         else:
-#             primes = [x for x in range(2, query_num + 1)]
-#             for number in primes:
-#                 for x in primes:
-#                     if x % number == 0 and x >= (number * number):
-#                         primes.remove(x)
-#             e_cache_primes[query_num] = primes
-#         if len(primes) % 2 == 0:
-#             wins['Ben'] += 1
-#         else:
-#             wins['Maria'] += 1
+def isWinner(x, nums):
+    '''Prime Game'''
+    if x is None or nums is None or x == 0 or nums == []:
+        return None
+    e_cache_primes = {}
+    wins = {"Maria": 0, "Ben": 0}
+    for i in range(x):
+        single_wins = {"Maria": 0, "Ben": 0}
+        query_num = nums[i]
+        if query_num in e_cache_primes:
+            primes = e_cache_primes[query_num]
+        else:
+            primes = [x for x in range(2, query_num + 1)]
+            for number in primes:
+                if number * number <= query_num:
+                    for x in primes:
+                        if x % number == 0 and x >= (number * number):
+                            primes.remove(x)
+            e_cache_primes[query_num] = primes
+        if len(primes) % 2 == 0:
+            wins['Ben'] += 1
+        else:
+            wins['Maria'] += 1
     #     if len(primes) == 0:
     #         wins['Ben'] += 1
     #         continue
@@ -52,38 +53,6 @@
     #     if i + 1 < x - 1 and i + 1 > len(nums):
     #         wins[winner] += 1
     #         break
-    # if wins['Maria'] == wins['Ben']:
-    #     return None
-    # return 'Maria' if wins['Maria'] > wins['Ben'] else 'Ben'
-def countPrime(n):
-    """Count the number of prime numbers."""
-    prime = [True for i in range(n + 1)]
-    p = 2
-    while p * p <= n:
-        if prime[p]:
-            for i in range(p * p, n + 1, p):
-                prime[i] = False
-        p += 1
-    count = 0
-    for p in range(2, n + 1):
-        if prime[p]:
-            count += 1
-    return count
-
-
-def isWinner(x, nums):
-    """Determine the winner based on prime number count."""
-    ben = 0
-    maria = 0
-    if x <= 0 or not nums:
+    if wins['Maria'] == wins['Ben']:
         return None
-    for num in range(x):
-        if countPrime(nums[num]) % 2 == 0:
-            ben += 1
-        else:
-            maria += 1
-    if ben > maria:
-        return "Ben"
-    if ben == maria:
-        return None
-    return "Maria"
+    return 'Maria' if wins['Maria'] > wins['Ben'] else 'Ben'
