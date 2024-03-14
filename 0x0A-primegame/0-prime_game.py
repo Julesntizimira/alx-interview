@@ -13,6 +13,7 @@ def isWinner(x, nums):
         if query_num in e_cache_primes:
             count = e_cache_primes[query_num]
         else:
+            # counting primes using Sieve of Eratosthenes algorithm
             primes = [True for _ in range(query_num + 1)]
             p = 2
             while p * p <= query_num:
