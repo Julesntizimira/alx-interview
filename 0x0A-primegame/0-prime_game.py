@@ -14,15 +14,11 @@ def isWinner(x, nums):
         if query_num in e_cache_primes:
             primes = e_cache_primes[query_num]
         else:
-            primes = []
-            if query_num > 1:
-                for j in range(2, query_num + 1):
-                    for z in range(2, j + 1):
-                        if j % z == 0 and j != z:
-                            break
-                        if z >= (j / 2):
-                            primes.append(j)
-                            break
+            primes = [x for x in range(2, query_num + 1)]
+            for number in primes:
+                for x in primes:
+                    if x % number == 0 and x >= (number * number):
+                        primes.remove(x)
             e_cache_primes[query_num] = primes
         if len(primes) == 0:
             wins['Ben'] += 1
